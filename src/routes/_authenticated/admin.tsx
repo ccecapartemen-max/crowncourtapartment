@@ -111,7 +111,7 @@ function CompanyEditor() {
     ["email", "Email"],
     ["whatsapp", "WhatsApp"],
     ["instagram", "Instagram"],
-    ["facebook", "Facebook"],
+    ["tiktok", "TIKTOK"],
     ["website", "Website"],
   ];
 

@@ -42,7 +42,7 @@ function ContactPage() {
           </div>
           <div className="space-y-8">
             <Field label="Instagram" value={info?.instagram} />
-            <Field label="Facebook" value={info?.facebook} />
+            <Field label="TIKTOK" value={info?.tiktok} />
             <Field label="Website" value={info?.website} href={info?.website ?? undefined} />
             <div className="rounded-xl bg-secondary p-8">
               <p className="text-xs uppercase tracking-widest text-muted-foreground">Jam Operasional</p>

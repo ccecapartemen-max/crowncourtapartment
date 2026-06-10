@@ -10,7 +10,7 @@ export type CompanyInfo = {
   email: string | null;
   whatsapp: string | null;
   instagram: string | null;
-  facebook: string | null;
+  tiktok: string | null;
   website: string | null;
 };
 
