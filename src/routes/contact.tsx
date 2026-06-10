@@ -52,6 +52,31 @@ function ContactPage() {
             </div>
           </div>
         </div>
+
+        <div className="mt-20 border-t pt-16">
+          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Marketing</p>
+          <h2 className="mt-4 text-3xl md:text-4xl">Hubungi tim marketing kami.</h2>
+          <p className="mt-4 max-w-xl text-muted-foreground">
+            Konsultasi langsung dengan marketing executive untuk informasi unit, harga, dan jadwal kunjungan.
+          </p>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <MarketingCard
+              name="Sarah Wijaya"
+              role="Senior Marketing Executive"
+              phone="+62 812-3456-7890"
+              whatsapp="6281234567890"
+              email="sarah@crowncourt.id"
+            />
+            <MarketingCard
+              name="Andre Pratama"
+              role="Marketing Executive"
+              phone="+62 813-9876-5432"
+              whatsapp="6281398765432"
+              email="andre@crowncourt.id"
+            />
+          </div>
+        </div>
       </section>
       <SiteFooter />
     </div>
