@@ -325,7 +325,7 @@ function NewsEditor() {
                 <span className="text-xs uppercase tracking-widest text-muted-foreground">Isi</span>
                 <textarea rows={8} value={editing.body ?? ""} onChange={(e) => setEditing({ ...editing, body: e.target.value })} className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
               </label>
-              <Inp label="URL Gambar" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} />
+              <ImageField label="Gambar Berita" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} />
               <label className="flex items-center gap-2 text-sm">
                 <input type="checkbox" checked={editing.published ?? true} onChange={(e) => setEditing({ ...editing, published: e.target.checked })} />
                 Publikasikan
