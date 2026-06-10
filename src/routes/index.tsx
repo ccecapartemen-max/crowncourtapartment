@@ -47,7 +47,7 @@ function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/30 to-background" />
           <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-end px-6 pb-20">
             <p className="text-xs uppercase tracking-[0.3em] text-foreground/70">
-              Jakarta Selatan · Penyerahan Q3 2026
+              {"\n"}
             </p>
             <h1 className="mt-4 max-w-3xl text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
               Crown Court
