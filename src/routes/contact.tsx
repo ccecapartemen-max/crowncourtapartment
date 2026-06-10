@@ -98,3 +98,40 @@ function Field({ label, value, href }: { label: string; value?: string | null; h
     </div>
   );
 }
+
+function MarketingCard({
+  name,
+  role,
+  phone,
+  whatsapp,
+  email,
+}: {
+  name: string;
+  role: string;
+  phone: string;
+  whatsapp: string;
+  email: string;
+}) {
+  return (
+    <div className="rounded-xl border bg-card p-8">
+      <p className="text-xs uppercase tracking-widest text-muted-foreground">{role}</p>
+      <p className="mt-2 text-xl font-medium">{name}</p>
+      <div className="mt-6 space-y-3 text-sm">
+        <a href={`tel:${phone}`} className="block underline-offset-4 hover:underline">
+          {phone}
+        </a>
+        <a
+          href={`https://wa.me/${whatsapp}`}
+          target="_blank"
+          rel="noreferrer"
+          className="block underline-offset-4 hover:underline"
+        >
+          WhatsApp · {whatsapp}
+        </a>
+        <a href={`mailto:${email}`} className="block underline-offset-4 hover:underline">
+          {email}
+        </a>
+      </div>
+    </div>
+  );
+}
