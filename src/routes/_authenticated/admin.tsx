@@ -235,7 +235,7 @@ function ProductsEditor() {
               <Inp label="Harga mulai (IDR)" type="number" value={editing.price_from ?? ""} onChange={(v) => setEditing({ ...editing, price_from: v === "" ? null : Number(v) })} />
               <Inp label="Kamar tidur" type="number" value={editing.bedrooms ?? ""} onChange={(v) => setEditing({ ...editing, bedrooms: v === "" ? null : Number(v) })} />
               <Inp label="Kamar mandi" type="number" value={editing.bathrooms ?? ""} onChange={(v) => setEditing({ ...editing, bathrooms: v === "" ? null : Number(v) })} />
-              <Inp label="URL Gambar" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} className="md:col-span-2" />
+              <ImageField label="Gambar Unit" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} className="md:col-span-2" />
               <Inp label="Fitur (pisah dengan koma)" value={(editing.features ?? []).join(", ")} onChange={(v) => setEditing({ ...editing, features: v.split(",").map((s) => s.trim()).filter(Boolean) })} className="md:col-span-2" />
               <label className="md:col-span-2">
                 <span className="text-xs uppercase tracking-widest text-muted-foreground">Deskripsi</span>
@@ -325,7 +325,7 @@ function NewsEditor() {
                 <span className="text-xs uppercase tracking-widest text-muted-foreground">Isi</span>
                 <textarea rows={8} value={editing.body ?? ""} onChange={(e) => setEditing({ ...editing, body: e.target.value })} className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
               </label>
-              <Inp label="URL Gambar" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} />
+              <ImageField label="Gambar Berita" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} />
               <label className="flex items-center gap-2 text-sm">
                 <input type="checkbox" checked={editing.published ?? true} onChange={(e) => setEditing({ ...editing, published: e.target.checked })} />
                 Publikasikan
@@ -353,5 +353,69 @@ function Inp({ label, value, onChange, type = "text", className = "" }: { label:
         className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
       />
     </label>
+  );
+}
+
+function ImageField({ label, value, onChange, className = "" }: { label: string; value: string; onChange: (v: string) => void; className?: string }) {
+  const [uploading, setUploading] = useState(false);
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Ukuran gambar maksimum 5MB");
+      return;
+    }
+    setUploading(true);
+    const ext = file.name.split(".").pop() || "jpg";
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error } = await supabase.storage.from("media").upload(path, file, {
+      cacheControl: "31536000",
+      upsert: false,
+      contentType: file.type,
+    });
+    setUploading(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    const { data } = supabase.storage.from("media").getPublicUrl(path);
+    onChange(data.publicUrl);
+    toast.success("Gambar terunggah");
+    e.target.value = "";
+  }
+
+  return (
+    <div className={`block ${className}`}>
+      <span className="text-xs uppercase tracking-widest text-muted-foreground">{label}</span>
+      <div className="mt-1.5 space-y-2">
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={value ?? ""}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="URL gambar atau unggah file…"
+            className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm"
+          />
+          <label className="cursor-pointer whitespace-nowrap rounded-md border border-border px-3 py-2 text-sm hover:bg-muted">
+            {uploading ? "Mengunggah…" : "Pilih file"}
+            <input type="file" accept="image/*" className="hidden" onChange={handleFile} disabled={uploading} />
+          </label>
+          {value && (
+            <button
+              type="button"
+              onClick={() => onChange("")}
+              className="rounded-md border border-border px-3 py-2 text-sm text-muted-foreground hover:text-destructive"
+            >
+              Hapus
+            </button>
+          )}
+        </div>
+        {value && (
+          <img src={value} alt="Pratinjau" className="h-32 w-auto rounded-md border border-border object-cover" />
+        )}
+        <p className="text-xs text-muted-foreground">Format: JPG, PNG, WebP. Maks 5MB.</p>
+      </div>
+    </div>
   );
 }
