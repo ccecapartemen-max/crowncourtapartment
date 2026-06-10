@@ -19,11 +19,11 @@ export type Database = {
           about: string | null
           address: string | null
           email: string | null
-          facebook: string | null
           id: string
           instagram: string | null
           phone: string | null
           tagline: string | null
+          tiktok: string | null
           updated_at: string
           website: string | null
           whatsapp: string | null
@@ -32,11 +32,11 @@ export type Database = {
           about?: string | null
           address?: string | null
           email?: string | null
-          facebook?: string | null
           id?: string
           instagram?: string | null
           phone?: string | null
           tagline?: string | null
+          tiktok?: string | null
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
@@ -45,11 +45,11 @@ export type Database = {
           about?: string | null
           address?: string | null
           email?: string | null
-          facebook?: string | null
           id?: string
           instagram?: string | null
           phone?: string | null
           tagline?: string | null
+          tiktok?: string | null
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
