@@ -27,6 +27,7 @@ export type Database = {
           updated_at: string
           website: string | null
           whatsapp: string | null
+          youtube: string | null
         }
         Insert: {
           about?: string | null
@@ -40,6 +41,7 @@ export type Database = {
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
+          youtube?: string | null
         }
         Update: {
           about?: string | null
@@ -53,6 +55,7 @@ export type Database = {
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
+          youtube?: string | null
         }
         Relationships: []
       }

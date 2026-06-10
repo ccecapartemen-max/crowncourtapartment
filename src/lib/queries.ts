@@ -11,6 +11,7 @@ export type CompanyInfo = {
   whatsapp: string | null;
   instagram: string | null;
   tiktok: string | null;
+  youtube: string | null;
   website: string | null;
 };
 

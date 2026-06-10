@@ -112,6 +112,7 @@ function CompanyEditor() {
     ["whatsapp", "WhatsApp"],
     ["instagram", "Instagram"],
     ["tiktok", "TIKTOK"],
+    ["youtube", "YouTube"],
     ["website", "Website"],
   ];
 
