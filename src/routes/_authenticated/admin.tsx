@@ -235,7 +235,7 @@ function ProductsEditor() {
               <Inp label="Harga mulai (IDR)" type="number" value={editing.price_from ?? ""} onChange={(v) => setEditing({ ...editing, price_from: v === "" ? null : Number(v) })} />
               <Inp label="Kamar tidur" type="number" value={editing.bedrooms ?? ""} onChange={(v) => setEditing({ ...editing, bedrooms: v === "" ? null : Number(v) })} />
               <Inp label="Kamar mandi" type="number" value={editing.bathrooms ?? ""} onChange={(v) => setEditing({ ...editing, bathrooms: v === "" ? null : Number(v) })} />
-              <Inp label="URL Gambar" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} className="md:col-span-2" />
+              <ImageField label="Gambar Unit" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} className="md:col-span-2" />
               <Inp label="Fitur (pisah dengan koma)" value={(editing.features ?? []).join(", ")} onChange={(v) => setEditing({ ...editing, features: v.split(",").map((s) => s.trim()).filter(Boolean) })} className="md:col-span-2" />
               <label className="md:col-span-2">
                 <span className="text-xs uppercase tracking-widest text-muted-foreground">Deskripsi</span>
