@@ -379,8 +379,14 @@ function ImageField({ label, value, onChange, className = "" }: { label: string;
       toast.error(error.message);
       return;
     }
-    const { data } = supabase.storage.from("media").getPublicUrl(path);
-    onChange(data.publicUrl);
+    const { data: signed, error: signErr } = await supabase.storage
+      .from("media")
+      .createSignedUrl(path, 60 * 60 * 24 * 365 * 10); // 10 tahun
+    if (signErr || !signed) {
+      toast.error(signErr?.message ?? "Gagal membuat URL gambar");
+      return;
+    }
+    onChange(signed.signedUrl);
     toast.success("Gambar terunggah");
     e.target.value = "";
   }
