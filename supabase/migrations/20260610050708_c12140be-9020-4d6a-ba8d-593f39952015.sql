@@ -1,0 +1,1 @@
+ALTER TABLE public.company_info RENAME COLUMN facebook TO tiktok;
