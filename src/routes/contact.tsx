@@ -52,6 +52,31 @@ function ContactPage() {
             </div>
           </div>
         </div>
+
+        <div className="mt-20 border-t pt-16">
+          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Marketing</p>
+          <h2 className="mt-4 text-3xl md:text-4xl">Hubungi tim marketing kami.</h2>
+          <p className="mt-4 max-w-xl text-muted-foreground">
+            Konsultasi langsung dengan marketing executive untuk informasi unit, harga, dan jadwal kunjungan.
+          </p>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <MarketingCard
+              name="Sarah Wijaya"
+              role="Senior Marketing Executive"
+              phone="+62 812-3456-7890"
+              whatsapp="6281234567890"
+              email="sarah@crowncourt.id"
+            />
+            <MarketingCard
+              name="Andre Pratama"
+              role="Marketing Executive"
+              phone="+62 813-9876-5432"
+              whatsapp="6281398765432"
+              email="andre@crowncourt.id"
+            />
+          </div>
+        </div>
       </section>
       <SiteFooter />
     </div>
@@ -70,6 +95,43 @@ function Field({ label, value, href }: { label: string; value?: string | null; h
       ) : (
         <p className="mt-2 text-lg">{value}</p>
       )}
+    </div>
+  );
+}
+
+function MarketingCard({
+  name,
+  role,
+  phone,
+  whatsapp,
+  email,
+}: {
+  name: string;
+  role: string;
+  phone: string;
+  whatsapp: string;
+  email: string;
+}) {
+  return (
+    <div className="rounded-xl border bg-card p-8">
+      <p className="text-xs uppercase tracking-widest text-muted-foreground">{role}</p>
+      <p className="mt-2 text-xl font-medium">{name}</p>
+      <div className="mt-6 space-y-3 text-sm">
+        <a href={`tel:${phone}`} className="block underline-offset-4 hover:underline">
+          {phone}
+        </a>
+        <a
+          href={`https://wa.me/${whatsapp}`}
+          target="_blank"
+          rel="noreferrer"
+          className="block underline-offset-4 hover:underline"
+        >
+          WhatsApp · {whatsapp}
+        </a>
+        <a href={`mailto:${email}`} className="block underline-offset-4 hover:underline">
+          {email}
+        </a>
+      </div>
     </div>
   );
 }
