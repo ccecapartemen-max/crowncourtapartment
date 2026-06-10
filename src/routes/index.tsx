@@ -87,9 +87,9 @@ function Home() {
               {info?.about}
             </p>
             <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-8">
-              <Stat label="Total Unit" value="148" />
-              <Stat label="Lantai" value="24" />
-              <Stat label="Fasilitas" value="12+" />
+              <Stat label="\n" value="\n" />
+              <Stat label="\n" value="\n" />
+              <Stat label="\n" value="\n" />
             </dl>
           </div>
         </div>
