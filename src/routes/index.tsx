@@ -127,7 +127,22 @@ function Home() {
                     {p.size_sqm} m² · {p.bedrooms} KT · {p.bathrooms} KM
                   </p>
                   <p className="mt-3 text-sm">Mulai {formatRupiah(p.price_from)}</p>
+                  {(p.marketing_name || p.marketing_contact) && (
+                    <div className="mt-4 border-t border-border pt-3">
+                      <p className="text-xs uppercase tracking-widest text-muted-foreground">Marketing</p>
+                      {p.marketing_name && <p className="mt-1 text-sm">{p.marketing_name}</p>}
+                      {p.marketing_contact && (
+                        <a
+                          href={`tel:${p.marketing_contact}`}
+                          className="text-sm text-muted-foreground hover:text-foreground"
+                        >
+                          {p.marketing_contact}
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
+
               </article>
             ))}
           </div>
