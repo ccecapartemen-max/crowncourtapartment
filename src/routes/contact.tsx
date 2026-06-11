@@ -61,22 +61,20 @@ function ContactPage() {
             Konsultasi langsung dengan marketing executive untuk informasi unit, harga, dan jadwal kunjungan.
           </p>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <MarketingCard
-              name="Sarah Wijaya"
-              role="Senior Marketing Executive"
-              phone="+62 812-3456-7890"
-              whatsapp="6281234567890"
-              email="sarah@crowncourt.id"
-            />
-            <MarketingCard
-              name="Andre Pratama"
-              role="Marketing Executive"
-              phone="+62 813-9876-5432"
-              whatsapp="6281398765432"
-              email="andre@crowncourt.id"
-            />
-          </div>
+          {marketing && marketing.length > 0 && (
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {marketing.map((m) => (
+                <MarketingCard
+                  key={m.id}
+                  name={m.name}
+                  role={m.role ?? ""}
+                  phone={m.phone ?? ""}
+                  whatsapp={m.whatsapp ?? ""}
+                  email={m.email ?? ""}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
       <SiteFooter />
