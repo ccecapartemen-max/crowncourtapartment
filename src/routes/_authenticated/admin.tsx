@@ -115,6 +115,7 @@ function CompanyEditor() {
     ["tiktok", "TIKTOK"],
     ["youtube", "YouTube"],
     ["website", "Website"],
+    ["about_video_url", "URL Video YouTube (Tentang)"],
   ];
 
   return (
