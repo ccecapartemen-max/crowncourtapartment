@@ -430,3 +430,98 @@ function ImageField({ label, value, onChange, className = "" }: { label: string;
     </div>
   );
 }
+
+/* ---------------- Marketing Contacts ---------------- */
+function MarketingEditor() {
+  const { data: items } = useMarketingContacts();
+  const qc = useQueryClient();
+  const [editing, setEditing] = useState<Partial<MarketingContact> | null>(null);
+
+  async function save() {
+    if (!editing) return;
+    const payload = {
+      name: editing.name ?? "",
+      role: editing.role ?? null,
+      phone: editing.phone ?? null,
+      whatsapp: editing.whatsapp ?? null,
+      email: editing.email ?? null,
+      sort_order: editing.sort_order ?? 0,
+    };
+    const { error } = editing.id
+      ? await (supabase as any).from("marketing_contacts").update(payload).eq("id", editing.id)
+      : await (supabase as any).from("marketing_contacts").insert(payload);
+    if (error) return toast.error(error.message);
+    toast.success("Tersimpan");
+    setEditing(null);
+    qc.invalidateQueries({ queryKey: ["marketing_contacts"] });
+  }
+
+  async function remove(id: string) {
+    if (!confirm("Hapus kontak marketing ini?")) return;
+    const { error } = await (supabase as any).from("marketing_contacts").delete().eq("id", id);
+    if (error) return toast.error(error.message);
+    toast.success("Dihapus");
+    qc.invalidateQueries({ queryKey: ["marketing_contacts"] });
+  }
+
+  return (
+    <div>
+      <div className="mb-6 flex justify-end">
+        <button
+          onClick={() => setEditing({ sort_order: (items?.length ?? 0) + 1 })}
+          className="rounded-md bg-foreground px-4 py-2 text-sm text-background"
+        >
+          + Tambah Marketing
+        </button>
+      </div>
+
+      <div className="overflow-hidden rounded-lg border border-border">
+        <table className="w-full text-sm">
+          <thead className="bg-secondary text-xs uppercase tracking-widest text-muted-foreground">
+            <tr>
+              <th className="px-4 py-3 text-left">Urutan</th>
+              <th className="px-4 py-3 text-left">Nama</th>
+              <th className="px-4 py-3 text-left">Jabatan</th>
+              <th className="px-4 py-3 text-left">Telepon</th>
+              <th className="px-4 py-3" />
+            </tr>
+          </thead>
+          <tbody>
+            {(items ?? []).map((m) => (
+              <tr key={m.id} className="border-t border-border">
+                <td className="px-4 py-3 text-muted-foreground">{m.sort_order}</td>
+                <td className="px-4 py-3">{m.name}</td>
+                <td className="px-4 py-3 text-muted-foreground">{m.role}</td>
+                <td className="px-4 py-3 text-muted-foreground">{m.phone}</td>
+                <td className="px-4 py-3 text-right">
+                  <button onClick={() => setEditing(m)} className="mr-3 underline">Edit</button>
+                  <button onClick={() => remove(m.id)} className="text-destructive underline">Hapus</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {editing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 p-4">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg bg-background p-8">
+            <h3 className="text-2xl">{editing.id ? "Edit Marketing" : "Tambah Marketing"}</h3>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <Inp label="Nama" value={editing.name ?? ""} onChange={(v) => setEditing({ ...editing, name: v })} />
+              <Inp label="Jabatan" value={editing.role ?? ""} onChange={(v) => setEditing({ ...editing, role: v })} />
+              <Inp label="Telepon" value={editing.phone ?? ""} onChange={(v) => setEditing({ ...editing, phone: v })} />
+              <Inp label="WhatsApp (mis. 6281234567890)" value={editing.whatsapp ?? ""} onChange={(v) => setEditing({ ...editing, whatsapp: v })} />
+              <Inp label="Email" value={editing.email ?? ""} onChange={(v) => setEditing({ ...editing, email: v })} className="md:col-span-2" />
+              <Inp label="Urutan tampil" type="number" value={editing.sort_order ?? 0} onChange={(v) => setEditing({ ...editing, sort_order: v === "" ? 0 : Number(v) })} />
+            </div>
+            <div className="mt-6 flex justify-end gap-3">
+              <button onClick={() => setEditing(null)} className="rounded-md border border-border px-4 py-2 text-sm">Batal</button>
+              <button onClick={save} className="rounded-md bg-foreground px-4 py-2 text-sm text-background">Simpan</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
