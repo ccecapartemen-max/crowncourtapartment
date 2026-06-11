@@ -5,7 +5,7 @@ import unit2 from "@/assets/unit-2.jpg";
 import unit3 from "@/assets/unit-3.jpg";
 import { SiteNav } from "@/components/site/SiteNav";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { useCompanyInfo, useProducts, useNews, formatRupiah, formatDate } from "@/lib/queries";
+import { useCompanyInfo, useProducts, useNews, formatRupiah, formatDate, youtubeEmbedUrl } from "@/lib/queries";
 
 const unitImages = [unit1, unit2, unit3];
 
