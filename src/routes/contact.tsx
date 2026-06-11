@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site/SiteNav";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { useCompanyInfo } from "@/lib/queries";
+import { useCompanyInfo, useMarketingContacts } from "@/lib/queries";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
