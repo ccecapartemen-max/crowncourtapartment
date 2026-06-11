@@ -32,6 +32,16 @@ export type Product = {
   created_at: string;
 };
 
+export type MarketingContact = {
+  id: string;
+  name: string;
+  role: string | null;
+  phone: string | null;
+  whatsapp: string | null;
+  email: string | null;
+  sort_order: number;
+};
+
 export type NewsPost = {
   id: string;
   title: string;
@@ -81,6 +91,20 @@ export function useNews() {
         .order("published_at", { ascending: false });
       if (error) throw error;
       return (data ?? []) as NewsPost[];
+    },
+  });
+}
+
+export function useMarketingContacts() {
+  return useQuery({
+    queryKey: ["marketing_contacts"],
+    queryFn: async () => {
+      const { data, error } = await (supabase as any)
+        .from("marketing_contacts")
+        .select("*")
+        .order("sort_order", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as MarketingContact[];
     },
   });
 }

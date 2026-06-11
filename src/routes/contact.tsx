@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site/SiteNav";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { useCompanyInfo } from "@/lib/queries";
+import { useCompanyInfo, useMarketingContacts } from "@/lib/queries";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,6 +19,7 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const { data: info } = useCompanyInfo();
+  const { data: marketing } = useMarketingContacts();
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
@@ -60,22 +61,20 @@ function ContactPage() {
             Konsultasi langsung dengan marketing executive untuk informasi unit, harga, dan jadwal kunjungan.
           </p>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <MarketingCard
-              name="Sarah Wijaya"
-              role="Senior Marketing Executive"
-              phone="+62 812-3456-7890"
-              whatsapp="6281234567890"
-              email="sarah@crowncourt.id"
-            />
-            <MarketingCard
-              name="Andre Pratama"
-              role="Marketing Executive"
-              phone="+62 813-9876-5432"
-              whatsapp="6281398765432"
-              email="andre@crowncourt.id"
-            />
-          </div>
+          {marketing && marketing.length > 0 && (
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {marketing.map((m) => (
+                <MarketingCard
+                  key={m.id}
+                  name={m.name}
+                  role={m.role ?? ""}
+                  phone={m.phone ?? ""}
+                  whatsapp={m.whatsapp ?? ""}
+                  email={m.email ?? ""}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
       <SiteFooter />
@@ -114,23 +113,29 @@ function MarketingCard({
 }) {
   return (
     <div className="rounded-xl border bg-card p-8">
-      <p className="text-xs uppercase tracking-widest text-muted-foreground">{role}</p>
+      {role && <p className="text-xs uppercase tracking-widest text-muted-foreground">{role}</p>}
       <p className="mt-2 text-xl font-medium">{name}</p>
       <div className="mt-6 space-y-3 text-sm">
-        <a href={`tel:${phone}`} className="block underline-offset-4 hover:underline">
-          {phone}
-        </a>
-        <a
-          href={`https://wa.me/${whatsapp}`}
-          target="_blank"
-          rel="noreferrer"
-          className="block underline-offset-4 hover:underline"
-        >
-          WhatsApp · {whatsapp}
-        </a>
-        <a href={`mailto:${email}`} className="block underline-offset-4 hover:underline">
-          {email}
-        </a>
+        {phone && (
+          <a href={`tel:${phone}`} className="block underline-offset-4 hover:underline">
+            {phone}
+          </a>
+        )}
+        {whatsapp && (
+          <a
+            href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
+            target="_blank"
+            rel="noreferrer"
+            className="block underline-offset-4 hover:underline"
+          >
+            WhatsApp · {whatsapp}
+          </a>
+        )}
+        {email && (
+          <a href={`mailto:${email}`} className="block underline-offset-4 hover:underline">
+            {email}
+          </a>
+        )}
       </div>
     </div>
   );
