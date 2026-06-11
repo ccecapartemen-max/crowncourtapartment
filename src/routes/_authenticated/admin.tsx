@@ -167,6 +167,8 @@ function ProductsEditor() {
       features: editing.features ?? null,
       image_url: editing.image_url ?? null,
       is_featured: editing.is_featured ?? false,
+      marketing_name: editing.marketing_name ?? null,
+      marketing_contact: editing.marketing_contact ?? null,
     };
     const { error } = editing.id
       ? await supabase.from("products").update(payload).eq("id", editing.id)
