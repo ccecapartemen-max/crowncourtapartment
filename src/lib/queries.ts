@@ -27,6 +27,8 @@ export type Product = {
   features: string[] | null;
   image_url: string | null;
   is_featured: boolean;
+  marketing_name: string | null;
+  marketing_contact: string | null;
   created_at: string;
 };
 
