@@ -61,7 +61,7 @@ function AdminPage() {
       </header>
       <div className="mx-auto max-w-6xl px-6 py-10">
         <nav className="mb-8 flex gap-1 border-b border-border">
-          {(["company", "products", "news"] as const).map((t) => (
+          {(["company", "products", "news", "marketing"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -71,13 +71,14 @@ function AdminPage() {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {t === "company" ? "Info Perusahaan" : t === "products" ? "Unit / Produk" : "Berita"}
+              {t === "company" ? "Info Perusahaan" : t === "products" ? "Unit / Produk" : t === "news" ? "Berita" : "Marketing"}
             </button>
           ))}
         </nav>
         {tab === "company" && <CompanyEditor />}
         {tab === "products" && <ProductsEditor />}
         {tab === "news" && <NewsEditor />}
+        {tab === "marketing" && <MarketingEditor />}
       </div>
     </div>
   );
