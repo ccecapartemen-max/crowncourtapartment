@@ -32,6 +32,16 @@ export type Product = {
   created_at: string;
 };
 
+export type MarketingContact = {
+  id: string;
+  name: string;
+  role: string | null;
+  phone: string | null;
+  whatsapp: string | null;
+  email: string | null;
+  sort_order: number;
+};
+
 export type NewsPost = {
   id: string;
   title: string;
