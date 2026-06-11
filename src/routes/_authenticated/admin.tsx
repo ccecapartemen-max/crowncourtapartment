@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "company" | "products" | "news";
+type Tab = "company" | "products" | "news" | "marketing";
 
 function AdminPage() {
   const navigate = useNavigate();
