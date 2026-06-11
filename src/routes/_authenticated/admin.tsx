@@ -167,6 +167,8 @@ function ProductsEditor() {
       features: editing.features ?? null,
       image_url: editing.image_url ?? null,
       is_featured: editing.is_featured ?? false,
+      marketing_name: editing.marketing_name ?? null,
+      marketing_contact: editing.marketing_contact ?? null,
     };
     const { error } = editing.id
       ? await supabase.from("products").update(payload).eq("id", editing.id)
@@ -236,6 +238,8 @@ function ProductsEditor() {
               <Inp label="Kamar tidur" type="number" value={editing.bedrooms ?? ""} onChange={(v) => setEditing({ ...editing, bedrooms: v === "" ? null : Number(v) })} />
               <Inp label="Kamar mandi" type="number" value={editing.bathrooms ?? ""} onChange={(v) => setEditing({ ...editing, bathrooms: v === "" ? null : Number(v) })} />
               <ImageField label="Gambar Unit" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} className="md:col-span-2" />
+              <Inp label="Nama Marketing" value={editing.marketing_name ?? ""} onChange={(v) => setEditing({ ...editing, marketing_name: v })} />
+              <Inp label="Nomor Kontak Marketing" value={editing.marketing_contact ?? ""} onChange={(v) => setEditing({ ...editing, marketing_contact: v })} />
               <Inp label="Fitur (pisah dengan koma)" value={(editing.features ?? []).join(", ")} onChange={(v) => setEditing({ ...editing, features: v.split(",").map((s) => s.trim()).filter(Boolean) })} className="md:col-span-2" />
               <label className="md:col-span-2">
                 <span className="text-xs uppercase tracking-widest text-muted-foreground">Deskripsi</span>

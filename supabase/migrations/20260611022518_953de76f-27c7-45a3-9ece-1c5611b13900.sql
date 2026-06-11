@@ -1,0 +1,1 @@
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS marketing_name TEXT, ADD COLUMN IF NOT EXISTS marketing_contact TEXT;
