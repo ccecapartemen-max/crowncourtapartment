@@ -93,6 +93,25 @@ function Home() {
             </dl>
           </div>
         </div>
+        {info?.about_video_url && (() => {
+          const embed = youtubeEmbedUrl(info.about_video_url);
+          if (!embed) return null;
+          return (
+            <div className="mt-16">
+              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Video</p>
+              <h3 className="mt-3 text-2xl">Lihat Lebih Dekat</h3>
+              <div className="mt-6 aspect-video w-full overflow-hidden rounded-lg border border-border">
+                <iframe
+                  src={embed}
+                  title="Video Tentang"
+                  className="h-full w-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          );
+        })()}
       </section>
 
       {/* Units */}
