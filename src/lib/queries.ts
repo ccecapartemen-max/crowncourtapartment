@@ -95,6 +95,20 @@ export function useNews() {
   });
 }
 
+export function useMarketingContacts() {
+  return useQuery({
+    queryKey: ["marketing_contacts"],
+    queryFn: async () => {
+      const { data, error } = await (supabase as any)
+        .from("marketing_contacts")
+        .select("*")
+        .order("sort_order", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as MarketingContact[];
+    },
+  });
+}
+
 export function formatRupiah(n: number | null | undefined) {
   if (n == null) return "—";
   return new Intl.NumberFormat("id-ID", {
