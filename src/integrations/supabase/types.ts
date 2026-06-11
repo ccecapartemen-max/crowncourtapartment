@@ -17,6 +17,7 @@ export type Database = {
       company_info: {
         Row: {
           about: string | null
+          about_video_url: string | null
           address: string | null
           email: string | null
           id: string
@@ -31,6 +32,7 @@ export type Database = {
         }
         Insert: {
           about?: string | null
+          about_video_url?: string | null
           address?: string | null
           email?: string | null
           id?: string
@@ -45,6 +47,7 @@ export type Database = {
         }
         Update: {
           about?: string | null
+          about_video_url?: string | null
           address?: string | null
           email?: string | null
           id?: string

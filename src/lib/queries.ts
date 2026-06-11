@@ -13,7 +13,20 @@ export type CompanyInfo = {
   tiktok: string | null;
   youtube: string | null;
   website: string | null;
+  about_video_url: string | null;
 };
+
+export function youtubeEmbedUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtu.be")) return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+    if (u.searchParams.get("v")) return `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
+    if (u.pathname.startsWith("/embed/")) return url;
+    if (u.pathname.startsWith("/shorts/")) return `https://www.youtube.com/embed/${u.pathname.split("/")[2]}`;
+  } catch {}
+  return null;
+}
 
 export type Product = {
   id: string;
