@@ -19,6 +19,7 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const { data: info } = useCompanyInfo();
+  const { data: marketing } = useMarketingContacts();
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
