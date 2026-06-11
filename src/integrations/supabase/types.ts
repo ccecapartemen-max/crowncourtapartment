@@ -105,6 +105,8 @@ export type Database = {
           id: string
           image_url: string | null
           is_featured: boolean
+          marketing_contact: string | null
+          marketing_name: string | null
           name: string
           price_from: number | null
           size_sqm: number | null
@@ -120,6 +122,8 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_featured?: boolean
+          marketing_contact?: string | null
+          marketing_name?: string | null
           name: string
           price_from?: number | null
           size_sqm?: number | null
@@ -135,6 +139,8 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_featured?: boolean
+          marketing_contact?: string | null
+          marketing_name?: string | null
           name?: string
           price_from?: number | null
           size_sqm?: number | null
