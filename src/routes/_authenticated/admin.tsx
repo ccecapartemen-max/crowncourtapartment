@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useCompanyInfo, useProducts, useNews, type Product, type NewsPost, type CompanyInfo, formatRupiah, formatDate } from "@/lib/queries";
+import { useCompanyInfo, useProducts, useNews, useMarketingContacts, type Product, type NewsPost, type CompanyInfo, type MarketingContact, formatRupiah, formatDate } from "@/lib/queries";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/admin")({
