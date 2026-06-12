@@ -20,10 +20,16 @@ export function youtubeEmbedUrl(url: string | null | undefined): string | null {
   if (!url) return null;
   try {
     const u = new URL(url);
-    if (u.hostname.includes("youtu.be")) return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
-    if (u.searchParams.get("v")) return `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
-    if (u.pathname.startsWith("/embed/")) return url;
-    if (u.pathname.startsWith("/shorts/")) return `https://www.youtube.com/embed/${u.pathname.split("/")[2]}`;
+    let embed: string | null = null;
+    if (u.hostname.includes("youtu.be")) embed = `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+    else if (u.searchParams.get("v")) embed = `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
+    else if (u.pathname.startsWith("/embed/")) embed = url;
+    else if (u.pathname.startsWith("/shorts/")) embed = `https://www.youtube.com/embed/${u.pathname.split("/")[2]}`;
+    if (!embed) return null;
+    const embedUrl = new URL(embed);
+    embedUrl.searchParams.set("autoplay", "1");
+    embedUrl.searchParams.set("mute", "1");
+    return embedUrl.toString();
   } catch {}
   return null;
 }
